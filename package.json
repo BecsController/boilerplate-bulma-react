@@ -5,8 +5,9 @@
   "author": "Rebecca Dugdale <bec.dugdale16@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js",
+    "start": "node server",
+    "dev": "nodemon server && webpack --watch",
+    "webpack": "webpack",
     "knex": "knex"
   },
   "dependencies": {
