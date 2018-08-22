@@ -5,8 +5,8 @@
   "author": "Rebecca Dugdale <bec.dugdale16@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
   },
   "dependencies": {
     "express": "^4.16.3",
