@@ -6,10 +6,12 @@
   "license": "MIT",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "knex": "knex"
   },
   "dependencies": {
     "express": "^4.16.3",
+    "knex": "^0.15.2",
     "nodemon": "^1.18.3"
   }
 }
