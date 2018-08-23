@@ -1,6 +1,6 @@
 const express = require('express')
 
-const {userExists, createUser} = require('../db/user')
+const {userExists, createUser} = require('../db/users')
 const token = require('../auth/token')
 
 const router = express.Router()

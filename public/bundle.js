@@ -3821,16 +3821,17 @@ var Users = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'h1',
-          null,
-          this.state.users[0].name
-        ),
-        _react2.default.createElement(
-          'h2',
-          null,
-          this.state.users[1].name
-        )
+        this.state.users && users.map(function (user) {
+          return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h1',
+              null,
+              user.name
+            )
+          );
+        })
       );
     }
   }]);

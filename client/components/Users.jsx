@@ -25,8 +25,11 @@ componentWillReceiveProps (nextProps) {
     console.log(this.state)
     return (
       <div>
-        <h1>{this.state.users[0].name}</h1>
-        <h2>{this.state.users[1].name}</h2>
+        {this.state.users && users.map(user => (
+          <div>
+            <h1>{user.name}</h1>
+          </div>
+        ))}
       </div>
     )
   }
