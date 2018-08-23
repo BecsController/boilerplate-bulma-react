@@ -3808,8 +3808,16 @@ var Users = function (_React$Component) {
       this.props.dispatch((0, _users.getUsers)());
     }
   }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        users: nextProps.users
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      console.log(this.state);
       return _react2.default.createElement(
         'div',
         null,
@@ -3830,9 +3838,9 @@ var Users = function (_React$Component) {
   return Users;
 }(_react2.default.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(users) {
   return {
-    users: state.users
+    users: users
   };
 };
 

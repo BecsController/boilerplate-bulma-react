@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {connect} from 'react-redux'
 
 import {getUsers} from '../actions/users'
@@ -16,7 +15,14 @@ componentDidMount() {
   this.props.dispatch(getUsers())
 }
 
+componentWillReceiveProps (nextProps) {
+  this.setState({
+    users: nextProps.users
+  })
+}
+
   render() {
+    console.log(this.state)
     return (
       <div>
         <h1>{this.state.users[0].name}</h1>
@@ -26,9 +32,9 @@ componentDidMount() {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = users => {
   return {
-    users: state.users
+    users
   }
 }
 
