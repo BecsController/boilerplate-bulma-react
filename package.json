@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server",
     "dev": "nodemon --watch server && webpack --watch",
-    "webpack": "webpack",
+    "postinstall": "webpack",
     "knex": "knex"
   },
   "babel": {

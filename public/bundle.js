@@ -3810,21 +3810,19 @@ var Users = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state.users);
       return _react2.default.createElement(
         'div',
         null,
-        this.state.users.map(function (user) {
-          return _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'h1',
-              null,
-              user.name
-            )
-          );
-        })
+        _react2.default.createElement(
+          'h1',
+          null,
+          this.state.users[0].name
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          this.state.users[1].name
+        )
       );
     }
   }]);
@@ -3832,10 +3830,9 @@ var Users = function (_React$Component) {
   return Users;
 }(_react2.default.Component);
 
-var mapStateToProps = function mapStateToProps(_ref) {
-  var users = _ref.users;
+var mapStateToProps = function mapStateToProps(state) {
   return {
-    users: users
+    users: state.users
   };
 };
 
@@ -3912,7 +3909,6 @@ exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments[1];
 
-  console.log(action);
   switch (action.type) {
     case 'RECEIVE_USERS':
       return action.users;

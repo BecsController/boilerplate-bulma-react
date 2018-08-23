@@ -17,19 +17,19 @@ componentDidMount() {
 }
 
   render() {
-  console.log(this.state.users)
     return (
       <div>
-        {this.state.users.map(user => <div>
-          <h1>{user.name}</h1>
-        </div>)}
+        <h1>{this.state.users[0].name}</h1>
+        <h2>{this.state.users[1].name}</h2>
       </div>
     )
   }
 }
 
-const mapStateToProps = users => ({
-  users
-})
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
 
 export default connect(mapStateToProps)(Users)
