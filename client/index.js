@@ -4,10 +4,7 @@ import {Provider} from 'react-redux'
 
 import App from './components/App'
 
-import {createStore} from 'redux'
-import reducers from './reducers/index'
-
-const store = createStore(reducers)
+import store from './store'
 
 document.addEventListener('DOMContentLoaded', () => {
   render(
