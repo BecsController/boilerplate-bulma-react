@@ -1,7 +1,8 @@
 const conn = require('./connection')
 
-function getUsers() {
-  return conn('users')
+function getUsers(testDb) {
+  const db = testDb || conn
+  return db('users')
 }
 
 module.exports = {
