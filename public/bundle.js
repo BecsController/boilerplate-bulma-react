@@ -3896,10 +3896,15 @@ var _users = __webpack_require__(48);
 
 var _users2 = _interopRequireDefault(_users);
 
+var _auth = __webpack_require__(113);
+
+var _auth2 = _interopRequireDefault(_auth);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
-  users: _users2.default
+  users: _users2.default,
+  auth: _auth2.default
 });
 
 /***/ }),
@@ -28891,6 +28896,268 @@ module.exports = function(originalModule) {
 	}
 	return module;
 };
+
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = auth;
+
+var _auth = __webpack_require__(114);
+
+var initialState = {
+  isFetching: false,
+  isAuthenticated: (0, _auth.isAuthenticated)(),
+  user: (0, _auth.getUserTokenInfo)(),
+  errorMessage: ''
+};
+
+function auth() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'LOGIN_REQUEST':
+      return _extends({}, state, {
+        isFetching: true,
+        isAuthenticated: false,
+        errorMessage: ''
+      });
+    case 'LOGIN_SUCCESS':
+      return _extends({}, state, {
+        isFetching: false,
+        isAuthenticated: true,
+        user: action.user
+      });
+    case 'LOGIN_FAILURE':
+      return _extends({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        errorMessage: action.message
+      });
+    case 'LOGOUT_SUCCESS':
+      return _extends({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        user: null
+      });
+    case 'REGISTER_REQUEST':
+      return _extends({}, state, {
+        isFetching: true,
+        isAuthenticated: false,
+        errorMessage: ''
+      });
+    case 'REGISTER_FAILURE':
+      return _extends({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        errorMessage: action.message
+      });
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isAuthenticated = isAuthenticated;
+exports.saveUserToken = saveUserToken;
+exports.getUserTokenInfo = getUserTokenInfo;
+exports.removeUser = removeUser;
+
+var _localstorage = __webpack_require__(115);
+
+var decode = __webpack_require__(118);
+
+function isAuthenticated() {
+  var token = (0, _localstorage.get)('token');
+
+  if (token) {
+    var payload = decode(token);
+    var expiry = payload.exp;
+
+    if (expiry < new Date().getTime() / 1000) {
+      removeUser();
+      return false;
+    }
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function saveUserToken(token) {
+  (0, _localstorage.set)('token', token);
+  return decode(token);
+}
+
+function getUserTokenInfo() {
+  var token = (0, _localstorage.get)('token');
+  return token ? decode(token) : null;
+}
+
+function removeUser() {
+  (0, _localstorage.set)('token', null);
+}
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.get = get;
+exports.set = set;
+var localStorage = global.window.localStorage;
+function get(key) {
+  return localStorage.getItem(key);
+}
+
+function set(key, value) {
+  if (value === null) {
+    localStorage.removeItem(key);
+  } else {
+    localStorage.setItem(key, value);
+  }
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports) {
+
+/**
+ * The code was extracted from:
+ * https://github.com/davidchambers/Base64.js
+ */
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function InvalidCharacterError(message) {
+  this.message = message;
+}
+
+InvalidCharacterError.prototype = new Error();
+InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+function polyfill (input) {
+  var str = String(input).replace(/=+$/, '');
+  if (str.length % 4 == 1) {
+    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+  }
+  for (
+    // initialize result and counters
+    var bc = 0, bs, buffer, idx = 0, output = '';
+    // get next character
+    buffer = str.charAt(idx++);
+    // character found in table? initialize bit storage and add its ascii value;
+    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+      // and if not first of each 4 characters,
+      // convert the first 8 bits to one ascii character
+      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+  ) {
+    // try to find character in table (0-63, not found => -1)
+    buffer = chars.indexOf(buffer);
+  }
+  return output;
+}
+
+
+module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
+
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var atob = __webpack_require__(116);
+
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
+    var code = p.charCodeAt(0).toString(16).toUpperCase();
+    if (code.length < 2) {
+      code = '0' + code;
+    }
+    return '%' + code;
+  }));
+}
+
+module.exports = function(str) {
+  var output = str.replace(/-/g, "+").replace(/_/g, "/");
+  switch (output.length % 4) {
+    case 0:
+      break;
+    case 2:
+      output += "==";
+      break;
+    case 3:
+      output += "=";
+      break;
+    default:
+      throw "Illegal base64url string!";
+  }
+
+  try{
+    return b64DecodeUnicode(output);
+  } catch (err) {
+    return atob(output);
+  }
+};
+
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var base64_url_decode = __webpack_require__(117);
+
+function InvalidTokenError(message) {
+  this.message = message;
+}
+
+InvalidTokenError.prototype = new Error();
+InvalidTokenError.prototype.name = 'InvalidTokenError';
+
+module.exports = function (token,options) {
+  if (typeof token !== 'string') {
+    throw new InvalidTokenError('Invalid token specified');
+  }
+
+  options = options || {};
+  var pos = options.header === true ? 0 : 1;
+  try {
+    return JSON.parse(base64_url_decode(token.split('.')[pos]));
+  } catch (e) {
+    throw new InvalidTokenError('Invalid token specified: ' + e.message);
+  }
+};
+
+module.exports.InvalidTokenError = InvalidTokenError;
 
 
 /***/ })
