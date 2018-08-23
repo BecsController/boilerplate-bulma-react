@@ -3905,7 +3905,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = function () {
+function users() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments[1];
 
@@ -3915,7 +3915,9 @@ exports.default = function () {
     default:
       return state;
   }
-};
+}
+
+exports.default = users;
 
 /***/ }),
 /* 49 */
@@ -28885,3 +28887,4 @@ module.exports = function(originalModule) {
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
