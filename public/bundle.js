@@ -3643,7 +3643,12 @@ var App = function App() {
     _react2.default.createElement(
       'div',
       null,
-      _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Users2.default })
+      _react2.default.createElement(
+        'h1',
+        null,
+        'Welcome'
+      ),
+      _react2.default.createElement(_reactRouterDom.Route, { path: '/users', component: _Users2.default })
     )
   );
 };
@@ -3841,15 +3846,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Users = function (_React$Component) {
   _inherits(Users, _React$Component);
 
-  function Users(props) {
+  function Users() {
     _classCallCheck(this, Users);
 
-    var _this = _possibleConstructorReturn(this, (Users.__proto__ || Object.getPrototypeOf(Users)).call(this, props));
-
-    _this.state = {
-      users: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Users.__proto__ || Object.getPrototypeOf(Users)).apply(this, arguments));
   }
 
   _createClass(Users, [{
@@ -3863,10 +3863,15 @@ var Users = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        this.state.users && this.state.users.map(function (user) {
+        _react2.default.createElement(
+          'h2',
+          null,
+          'User Page'
+        ),
+        this.props.users.map(function (user) {
           return _react2.default.createElement(
             'div',
-            null,
+            { key: user.name },
             _react2.default.createElement(
               'h1',
               null,
