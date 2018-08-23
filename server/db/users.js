@@ -3,7 +3,7 @@ const hash = require('../auth/hash')
 
 function getUsers(testDb) {
   const db = testDb || conn
-  return db('users')
+  return db('users').select()
 }
 
 function getAuthUsers(testDb) {

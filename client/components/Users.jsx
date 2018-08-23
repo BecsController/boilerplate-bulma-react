@@ -11,21 +11,14 @@ class Users extends React.Component {
     }
   }
 
-componentDidMount() {
+componentWillMount() {
   this.props.dispatch(getUsers())
 }
 
-componentWillReceiveProps (nextProps) {
-  this.setState({
-    users: nextProps.users
-  })
-}
-
   render() {
-    console.log(this.state)
     return (
       <div>
-        {this.state.users && users.map(user => (
+        {this.state.users && this.state.users.map(user => (
           <div>
             <h1>{user.name}</h1>
           </div>
@@ -35,10 +28,6 @@ componentWillReceiveProps (nextProps) {
   }
 }
 
-const mapStateToProps = users => {
-  return {
-    users
-  }
-}
+const mapStateToProps = users => users
 
 export default connect(mapStateToProps)(Users)

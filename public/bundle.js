@@ -3803,25 +3803,17 @@ var Users = function (_React$Component) {
   }
 
   _createClass(Users, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       this.props.dispatch((0, _users.getUsers)());
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      this.setState({
-        users: nextProps.users
-      });
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state);
       return _react2.default.createElement(
         'div',
         null,
-        this.state.users && users.map(function (user) {
+        this.state.users && this.state.users.map(function (user) {
           return _react2.default.createElement(
             'div',
             null,
@@ -3840,9 +3832,7 @@ var Users = function (_React$Component) {
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(users) {
-  return {
-    users: users
-  };
+  return users;
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Users);
