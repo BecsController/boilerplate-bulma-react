@@ -1,15 +1,15 @@
 const router = require('express').Router()
 
-const usersDB = require('../db/users')
+const usersDb = require('../db/users')
 
 router.get('/', (req, res) => {
   res.send('hello, world')
 })
 
 router.get('/users', (req, res) => {
-  usersDB.getUsers()
+  usersDb.getUsers()
     .then(users => {
-      res.json(users)
+      res.json({users})
   })
 })
 
