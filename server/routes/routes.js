@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 router.get('/users', (req, res) => {
   usersDb.getUsers()
     .then(users => {
-      res.json({users})
+      res.json(users)
   })
 })
 

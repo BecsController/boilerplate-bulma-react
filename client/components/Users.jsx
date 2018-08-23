@@ -5,13 +5,19 @@ import {connect} from 'react-redux'
 import {getUsers} from '../actions/users'
 
 class Users extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      users: []
+    }
+  }
 
 componentDidMount() {
   this.props.dispatch(getUsers())
 }
 
   render() {
-  console.log(props.users)
+  console.log(this.state.users)
     return (
       <div>
         {this.state.users.map(user => <div>
@@ -22,7 +28,7 @@ componentDidMount() {
   }
 }
 
-const mapStateToProps = ({users}) => ({
+const mapStateToProps = users => ({
   users
 })
 
