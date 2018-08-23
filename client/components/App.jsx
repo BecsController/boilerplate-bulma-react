@@ -1,10 +1,16 @@
 import React from 'react'
+import {HashRouter as Router, Route} from 'react-router-dom'
 
 import Users from './Users'
 
-export default function () {
-  return <div>
-    <h1>Hello, Client</h1>
-    <Users />
-  </div>
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <Route path='/' component={Users}/>
+      </div>
+    </Router>
+  )
 }
+
+export default App
